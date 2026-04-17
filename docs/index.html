@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>geno-media</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  h1 {
+    color: #F59E0B;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .tagline {
+    color: #8b949e;
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+  }
+  h2 {
+    color: #F59E0B;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid #21262d;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  th {
+    text-align: left;
+    color: #F59E0B;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #30363d;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #161b22;
+  }
+  td:first-child {
+    color: #e6edf3;
+    white-space: nowrap;
+  }
+  td:last-child {
+    color: #8b949e;
+  }
+  tr:hover td {
+    background: #161b22;
+  }
+  code, .code-block {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 4px;
+  }
+  code {
+    padding: 0.15em 0.35em;
+    font-size: 0.9em;
+    color: #e6edf3;
+  }
+  .code-block {
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    font-size: 0.9em;
+  }
+  .code-block .dim { color: #484f58; }
+  .code-block .file { color: #c9d1d9; }
+  .code-block .dir { color: #F59E0B; }
+  .code-block .comment { color: #6e7681; }
+  a {
+    color: #F59E0B;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  .ecosystem {
+    list-style: none;
+    padding: 0;
+  }
+  .ecosystem li {
+    padding: 0.4rem 0;
+  }
+  .ecosystem li span {
+    color: #8b949e;
+  }
+  .badge {
+    display: inline-block;
+    background: #F59E0B;
+    color: #0d1117;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15em 0.5em;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .prompt { color: #F59E0B; }
+  .cmd { color: #e6edf3; }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #21262d;
+    color: #484f58;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>geno-media</h1>
+<p class="tagline">Media creation skills for <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a>. Audiobooks with Kokoro TTS, animated videos with Manim, podcast videos, and TTS/STT configuration. Optimized for Apple Silicon.</p>
+
+<h2>Commands</h2>
+<table>
+  <thead>
+    <tr><th>Command</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>/gt-create-audiobook [folder]</code></td><td>Generate audiobook from transcript using Kokoro TTS</td></tr>
+    <tr><td><code>/gt-create-audiobook-recursive [folder]</code></td><td>Recursive audiobook generation across subfolders</td></tr>
+    <tr><td><code>/gt-create-video [folder]</code></td><td>Full video pipeline: transcript + audio to animated Manim video</td></tr>
+    <tr><td><code>/gt-create-podcast-video [folder]</code></td><td>Transcript + audio to karaoke-style text-on-screen video</td></tr>
+    <tr><td><code>/gt-config-tts</code></td><td>Configure TTS: voice, speed profile, accent</td></tr>
+    <tr><td><code>/gt-config-stt</code></td><td>Configure STT: Whisper model, language, backend</td></tr>
+    <tr><td><code>/gt-upload-audio</code></td><td>Upload audio files to Google Drive</td></tr>
+  </tbody>
+</table>
+
+<h2>Repository Structure</h2>
+<div class="code-block">
+<span class="dir">geno-media/</span>
+<br><span class="dim">├──</span> <span class="file">install.sh</span> <span class="comment"># Sets up ~/.geno/geno-media/ runtime + skills</span>
+<br><span class="dim">├──</span> <span class="dir">audiobook/</span>
+<br><span class="dim">│   └──</span> <span class="file">generate.py</span> <span class="comment"># Text -> audiobook using Kokoro TTS</span>
+<br><span class="dim">├──</span> <span class="dir">video/</span>
+<br><span class="dim">│   ├──</span> <span class="file">align_audio.py</span> <span class="comment"># Forced alignment: transcript + audio -> timing.yaml</span>
+<br><span class="dim">│   ├──</span> <span class="file">sync_utils.py</span> <span class="comment"># SegmentTimer for syncing Manim animations to audio</span>
+<br><span class="dim">│   └──</span> <span class="file">README.md</span> <span class="comment"># Video pipeline docs</span>
+<br><span class="dim">├──</span> <span class="dir">tts/</span>
+<br><span class="dim">│   └──</span> <span class="dir">profiles/</span> <span class="comment"># Speed variation profiles</span>
+<br><span class="dim">└──</span> <span class="dir">config/</span>
+<br><span class="dim">    └──</span> <span class="dir">defaults/</span> <span class="comment"># Default config templates</span>
+</div>
+
+<h2>Install</h2>
+<div class="code-block">
+<span class="prompt">$</span> <span class="cmd">./install.sh</span> <span class="comment"># full install (venvs + symlinks)</span>
+<br><span class="prompt">$</span> <span class="cmd">./install.sh --link</span> <span class="comment"># symlinks only (skip venv creation)</span>
+</div>
+<p style="margin-top:0.5rem; color:#8b949e;">System dependencies:</p>
+<div class="code-block">
+<span class="prompt">$</span> <span class="cmd">brew install cairo pango ffmpeg</span>
+</div>
+
+<h2>Runtime Location</h2>
+<p><code>~/.geno/geno-media/</code> — venvs, configs, symlinks to source.</p>
+
+<h2>Ecosystem</h2>
+<ul class="ecosystem">
+  <li><a href="https://github.com/42euge/geno-tools">geno-tools</a> <span>— orchestrator + general tools</span></li>
+  <li><a href="https://github.com/42euge/geno-research">geno-research</a> <span>— deep research workflows</span></li>
+  <li><a href="https://github.com/42euge/geno-kaggle">geno-kaggle</a> <span>— Kaggle benchmarking</span></li>
+  <li><a href="https://github.com/42euge/geno-media">geno-media</a><span class="badge">you are here</span> <span>— media creation skills</span></li>
+</ul>
+
+<footer>MIT License &middot; <a href="https://github.com/42euge/geno-media">github.com/42euge/geno-media</a></footer>
+
+</div>
+</body>
+</html>
