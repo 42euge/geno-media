@@ -2,7 +2,7 @@
 
 You are generating audiobooks for every `.md` and `.pdf` file found in a folder and its subfolders, using Kokoro TTS (82M params, runs locally on Apple Silicon).
 
-Supporting code lives in `~/.geno/geno-media/audiobook/`.
+Supporting code lives in `~/.geno-tools/geno-media/scripts/audiobook/`.
 
 ## Input
 
@@ -12,18 +12,17 @@ If `$ARGUMENTS` is empty or not provided, **default to the current working direc
 
 ## Your Workflow
 
-### 0. Ensure environment
+### 0. Activate the venv
 
-Check if `~/.geno/geno-media/audiobook/.venv` exists. If not, create it and install dependencies:
+The media venv is created by `geno-tools install media`. If missing:
 ```bash
-python3 -m venv ~/.geno/geno-media/audiobook/.venv
-source ~/.geno/geno-media/audiobook/.venv/bin/activate
-pip install "kokoro>=0.9" "misaki[en]" soundfile numpy pyyaml pymupdf
+geno-tools install media           # from registry
+# or: geno-tools dev media <path>  # for a local checkout
 ```
 
-Always activate the venv before any python commands:
+Always activate before any python commands:
 ```bash
-source ~/.geno/geno-media/audiobook/.venv/bin/activate
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
 ```
 
 ### 1. Discover files
@@ -92,9 +91,9 @@ After profile selection, ask the user to confirm the plan before proceeding.
 If the user selects profile 4 (V2), the workflow uses a dedicated batch script that handles sanitization, dual-voice generation, visual descriptions, and notifications.
 
 **V2 scripts:**
-- `~/.geno/geno-media/audiobook/batch_pdf_v2.py` — main batch processing script
-- `~/.geno/geno-media/audiobook/sanitize_pdf.py` — text sanitization
-- `~/.geno/geno-media/audiobook/describe_visuals.py` — figure/table descriptions (optional)
+- `~/.geno-tools/geno-media/scripts/audiobook/batch_pdf_v2.py` — main batch processing script
+- `~/.geno-tools/geno-media/scripts/audiobook/sanitize_pdf.py` — text sanitization
+- `~/.geno-tools/geno-media/scripts/audiobook/describe_visuals.py` — figure/table descriptions (optional)
 
 **V2 sanitization** (`sanitize_pdf.py`):
 - Strips author names, affiliations, emails from first page
@@ -122,8 +121,8 @@ If the user selects profile 4 (V2), the workflow uses a dedicated batch script t
 
 **Running V2 mode:**
 ```bash
-source ~/.geno/geno-media/audiobook/.venv/bin/activate
-python ~/.geno/geno-media/audiobook/batch_pdf_v2.py "/path/to/root/folder"
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
+python ~/.geno-tools/geno-media/scripts/audiobook/batch_pdf_v2.py "/path/to/root/folder"
 ```
 
 The batch script handles discovery, skipping already-processed files, sanitization, generation, and notifications internally. You do NOT need to manually loop through files — just invoke the batch script on the root folder.
@@ -137,11 +136,11 @@ For each file to process, generate.py expects a `transcript.md` in the target fo
 2. Temporarily copy it to `transcript.md` in the same folder, run generate.py with `--output` to name the wav, then clean up:
 
 ```bash
-source ~/.geno/geno-media/audiobook/.venv/bin/activate
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
 
 # Copy source to transcript.md, generate, clean up
 cp "/path/to/folder/Paper Name.md" "/path/to/folder/transcript.md"
-python ~/.geno/geno-media/audiobook/generate.py "/path/to/folder" --voice VOICE --speed SPEED --strip-citations --output "Paper Name (md) - VOICE.wav"
+python ~/.geno-tools/geno-media/scripts/audiobook/generate.py "/path/to/folder" --voice VOICE --speed SPEED --strip-citations --output "Paper Name (md) - VOICE.wav"
 rm "/path/to/folder/transcript.md"
 ```
 
@@ -151,7 +150,7 @@ If the file IS already named `transcript.md`, run generate.py directly without c
 generate.py auto-detects PDFs when no `transcript.md` exists. Ensure no `transcript.md` is in the folder (rename it temporarily if needed), then:
 
 ```bash
-python ~/.geno/geno-media/audiobook/generate.py "/path/to/folder" --voice VOICE --speed SPEED --strip-citations --output "Paper Name (pdf) - VOICE.wav"
+python ~/.geno-tools/geno-media/scripts/audiobook/generate.py "/path/to/folder" --voice VOICE --speed SPEED --strip-citations --output "Paper Name (pdf) - VOICE.wav"
 ```
 
 The script will create a `transcript.md` from the PDF automatically. Clean up the generated `transcript.md` afterward if the folder didn't originally have one.
@@ -170,15 +169,15 @@ When processing a folder with both `.md` and `.pdf`, process the `.md` first (bo
 
 ### 4b. Incremental upload (runs alongside generation)
 
-By default, start `~/.geno/geno-media/audio-upload/incremental_upload.py` in the background **immediately after generation begins**. This watches for new WAV files, converts them to MP3, and copies to Google Drive as they complete — no need to wait for the full batch.
+By default, start `~/.geno-tools/geno-media/audio-upload/incremental_upload.py` in the background **immediately after generation begins**. This watches for new WAV files, converts them to MP3, and copies to Google Drive as they complete — no need to wait for the full batch.
 
 ```bash
-python ~/.geno/geno-media/audio-upload/incremental_upload.py "/path/to/root" --pattern "v2" --interval 30 --max-idle 3600 &
+python ~/.geno-tools/geno-media/audio-upload/incremental_upload.py "/path/to/root" --pattern "v2" --interval 30 --max-idle 3600 &
 ```
 
 For non-v2 runs (default/single/custom profiles), omit `--pattern` or use the appropriate filter:
 ```bash
-python ~/.geno/geno-media/audio-upload/incremental_upload.py "/path/to/root" --interval 30 --max-idle 3600 &
+python ~/.geno-tools/geno-media/audio-upload/incremental_upload.py "/path/to/root" --interval 30 --max-idle 3600 &
 ```
 
 The uploader:

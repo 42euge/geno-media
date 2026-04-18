@@ -1,0 +1,30 @@
+name: geno-media
+version: 0.2.0
+description: Media creation — audiobooks (Kokoro TTS), videos (Manim), podcast videos, TTS/STT
+
+venv:
+  name: media
+  python: ">=3.10"
+  deps:
+    - "kokoro>=0.9"
+    - "misaki[en]"
+    - soundfile
+    - numpy
+    - pyyaml
+    - manim
+    - "stable-ts[mlx]"
+    - pymupdf
+
+runtime:
+  - {src: runtime/audiobook/generate.py,  dst: audiobook/generate.py}
+  - {src: runtime/video/align_audio.py,   dst: video/align_audio.py}
+  - {src: runtime/video/sync_utils.py,    dst: video/sync_utils.py}
+  - {src: runtime/video/README.md,        dst: video/README.md}
+
+config:
+  - {src: config/defaults/tts.yaml, dst: tts.yaml}
+  - {src: config/defaults/stt.yaml, dst: stt.yaml}
+  - {src: config/defaults/profiles, dst: profiles, recursive: true}
+
+commands:
+  source: commands/

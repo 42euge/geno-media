@@ -12,7 +12,7 @@ Select and save STT parameters (model, language, output format, etc.) to a confi
 
 ### 1. Load current config
 
-Read the config file at `~/.geno/geno-media/stt/config.yaml`. If it doesn't exist, create the directory and file with defaults:
+Read the config file at `~/.geno-tools/geno-media/stt/config.yaml`. If it doesn't exist, create the directory and file with defaults:
 
 ```yaml
 model: large-v3-turbo
@@ -76,7 +76,7 @@ If the user doesn't want to customize any, keep current values.
 
 ### 6. Save config
 
-Write the final config to `~/.geno/geno-media/stt/config.yaml`:
+Write the final config to `~/.geno-tools/geno-media/stt/config.yaml`:
 
 ```yaml
 model: <selected>
@@ -92,14 +92,14 @@ Display the saved configuration to the user.
 
 ### 7. Update README if needed
 
-If `~/.geno/geno-media/stt/` was newly created, update `~/.geno/geno-media/README.md`:
+If `~/.geno-tools/geno-media/stt/` was newly created, update `~/.geno-tools/geno-media/README.md`:
 - Add `stt/` to the structure tree
 - Add an "STT Configuration" section explaining the config
 - Add the skill to the Skills table
 
 ## Notes
 
-- The config is consumed by `~/.geno/geno-media/video/align_audio.py` and any future STT workflows
+- The config is consumed by `~/.geno-tools/geno-media/scripts/video/align_audio.py` and any future STT workflows
 - MLX backend requires Apple Silicon (M1+)
 - `large-v3-turbo` is the recommended default: nearly as accurate as `large-v3` but significantly faster on MLX
 - When changing models, remind the user that the model will be downloaded on first use

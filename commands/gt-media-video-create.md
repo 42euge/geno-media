@@ -2,7 +2,7 @@
 
 You are creating an explanatory video using Python and the Manim library (3Blue1Brown's animation engine) synchronized to a voiceover audio track.
 
-Supporting code and templates live in `~/.geno/geno-media/video/`.
+Supporting code and templates live in `~/.geno-tools/geno-media/scripts/video/`.
 
 ## Input
 
@@ -14,18 +14,19 @@ Inside that folder you will find:
 
 ## Your Workflow
 
-### 0. Ensure environment
-Check if `~/.geno/geno-media/video/.venv` exists. If not, create it and install dependencies:
-```bash
-python3 -m venv ~/.geno/geno-media/video/.venv
-source ~/.geno/geno-media/video/.venv/bin/activate
-pip install manim "stable-ts[mlx]" pyyaml
-```
-Also verify system deps (`ffmpeg`, `cairo`, `pango`) are available. On macOS: `brew install cairo pango ffmpeg`.
+### 0. Activate the venv
 
-Always activate the venv before any python/manim commands:
+The media venv is created by `geno-tools install media`. If missing:
 ```bash
-source ~/.geno/geno-media/video/.venv/bin/activate
+geno-tools install media           # from registry
+# or: geno-tools dev media <path>  # for a local checkout
+```
+
+Verify system deps: `brew install cairo pango ffmpeg` (macOS).
+
+Always activate before any python/manim commands:
+```bash
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
 ```
 
 ### 1. Read the inputs
@@ -62,8 +63,8 @@ and social cognition.
 
 ### 2b. Run forced alignment to get precise timing
 ```bash
-source ~/.geno/geno-media/video/.venv/bin/activate
-python ~/.geno/geno-media/video/align_audio.py "$ARGUMENTS"
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
+python ~/.geno-tools/geno-media/scripts/video/align_audio.py "$ARGUMENTS"
 ```
 This uses Whisper forced alignment (via `stable-ts` with MLX on Apple Silicon) to produce `timing.yaml` with:
 - Per-segment start/end timestamps
@@ -93,7 +94,7 @@ Create a single Python file at `$ARGUMENTS/scene.py` with the following structur
 ```python
 import sys, os
 from pathlib import Path
-sys.path.insert(0, os.path.expanduser("~/.geno/geno-media/video"))
+sys.path.insert(0, os.path.expanduser("~/.geno-tools/geno-media/video"))
 from manim import *
 from sync_utils import load_timing, SegmentTimer
 
@@ -165,7 +166,7 @@ def s04_five_tracks(self):
 ### 5. Render the video
 ```bash
 cd "$ARGUMENTS"
-source ~/.geno/geno-media/video/.venv/bin/activate
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
 manim render -qh scene.py VideoScene  # -qh = high quality 1080p
 ```
 

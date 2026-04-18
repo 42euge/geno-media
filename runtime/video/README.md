@@ -47,8 +47,8 @@ CLI tool that takes a folder path and produces `timing.yaml`.
 
 **Usage:**
 ```bash
-source ~/.geno/geno-media/video/.venv/bin/activate
-python ~/.geno/geno-media/video/align_audio.py /path/to/project/folder
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
+python ~/.geno-tools/geno-media/scripts/video/align_audio.py /path/to/project/folder
 ```
 
 **What it does:**
@@ -115,7 +115,7 @@ Tracks how much animation time has elapsed within a segment. Provides wrapper me
 ```python
 import sys, os
 from pathlib import Path
-sys.path.insert(0, os.path.expanduser("~/.geno/geno-media/video"))
+sys.path.insert(0, os.path.expanduser("~/.geno-tools/geno-media/video"))
 from manim import *
 from sync_utils import load_timing, SegmentTimer
 

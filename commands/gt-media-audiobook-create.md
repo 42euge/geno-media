@@ -2,7 +2,7 @@
 
 You are generating an audiobook from text/markdown files using Kokoro TTS (82M params, runs locally on Apple Silicon).
 
-Supporting code lives in `~/.geno/geno-media/audiobook/`.
+Supporting code lives in `~/.geno-tools/geno-media/scripts/audiobook/`.
 
 ## Input
 
@@ -15,18 +15,17 @@ Inside the target folder you will find:
 
 ## Your Workflow
 
-### 0. Ensure environment
+### 0. Activate the venv
 
-Check if `~/.geno/geno-media/audiobook/.venv` exists. If not, create it and install dependencies:
+The media venv is created by `geno-tools install media`. If missing:
 ```bash
-python3 -m venv ~/.geno/geno-media/audiobook/.venv
-source ~/.geno/geno-media/audiobook/.venv/bin/activate
-pip install "kokoro>=0.9" "misaki[en]" soundfile numpy pyyaml
+geno-tools install media           # from registry
+# or: geno-tools dev media <path>  # for a local checkout
 ```
 
-Always activate the venv before any python commands:
+Always activate before any python commands:
 ```bash
-source ~/.geno/geno-media/audiobook/.venv/bin/activate
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
 ```
 
 ### 1. Read and analyze the input
@@ -72,8 +71,8 @@ If the user doesn't specify, use `af_heart` at speed `1.0`.
 
 Run the generation script:
 ```bash
-source ~/.geno/geno-media/audiobook/.venv/bin/activate
-python ~/.geno/geno-media/audiobook/generate.py "FOLDER" --voice VOICE_ID --speed SPEED
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
+python ~/.geno-tools/geno-media/scripts/audiobook/generate.py "FOLDER" --voice VOICE_ID --speed SPEED
 ```
 
 This will produce:
