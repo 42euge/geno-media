@@ -3,7 +3,7 @@
 
 Usage:
     python generate.py /path/to/folder [--voice af_heart] [--speed 1.0]
-    python generate.py /path/to/folder --use-config          # use ~/.geno/geno-media/tts/config.yaml
+    python generate.py /path/to/folder --use-config          # use ~/.geno-tools/geno-media/configs/tts.yaml
     python generate.py /path/to/folder --use-config --speed-map speed_map.yaml
 
 The folder must contain a transcript.md file with the narration text.
@@ -30,8 +30,8 @@ import soundfile as sf
 import yaml
 
 
-CONFIG_PATH = Path.home() / ".genotools" / "tts" / "config.yaml"
-PROFILES_DIR = Path.home() / ".genotools" / "tts" / "profiles"
+CONFIG_PATH = Path.home() / ".geno-tools" / "geno-media" / "configs" / "tts.yaml"
+PROFILES_DIR = Path.home() / ".geno-tools" / "geno-media" / "configs" / "profiles"
 
 
 # ---------------------------------------------------------------------------
@@ -39,7 +39,7 @@ PROFILES_DIR = Path.home() / ".genotools" / "tts" / "profiles"
 # ---------------------------------------------------------------------------
 
 def load_config() -> dict:
-    """Load TTS config from ~/.geno/geno-media/tts/config.yaml."""
+    """Load TTS config from ~/.geno-tools/geno-media/configs/tts.yaml."""
     if not CONFIG_PATH.exists():
         return {}
     with open(CONFIG_PATH) as f:
@@ -263,7 +263,7 @@ def main():
     parser.add_argument("--output", default=None,
                         help="Output filename (default: audiobook.wav)")
     parser.add_argument("--use-config", action="store_true",
-                        help="Read settings from ~/.geno/geno-media/tts/config.yaml")
+                        help="Read settings from ~/.geno-tools/geno-media/configs/tts.yaml")
     parser.add_argument("--speed-map", default=None,
                         help="Path to speed_map.yaml with per-chunk speed multipliers")
     args = parser.parse_args()

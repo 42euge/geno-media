@@ -12,7 +12,7 @@ Select and save TTS parameters (voice, speed, output format, etc.) to a config f
 
 ### 1. Load current config
 
-Read the config file at `~/.geno/geno-media/tts/config.yaml`. If it doesn't exist, create the directory and file with defaults:
+Read the config file at `~/.geno-tools/geno-media/tts/config.yaml`. If it doesn't exist, create the directory and file with defaults:
 
 ```yaml
 engine: kokoro
@@ -79,7 +79,7 @@ Present the voices for the chosen category using `AskUserQuestion` (max 4 option
 
 ### 4. Select speed profile
 
-Speed profiles control how the LLM varies TTS speed per chunk based on content analysis. Each profile is a YAML file in `~/.geno/geno-media/tts/profiles/` containing a prompt that instructs the LLM when to speed up and slow down.
+Speed profiles control how the LLM varies TTS speed per chunk based on content analysis. Each profile is a YAML file in `~/.geno-tools/geno-media/tts/profiles/` containing a prompt that instructs the LLM when to speed up and slow down.
 
 Use `AskUserQuestion`:
 - `constant` — Fixed speed, no variation (classic TTS)
@@ -88,7 +88,7 @@ Use `AskUserQuestion`:
 - `dynamic` — Full range for mixed content (0.78x–1.22x), podcast-quality expressiveness
 - `lecturer` — Teaching-optimized (0.80x–1.12x), slows for new concepts, speeds through scaffolding
 
-After selection, offer to view/edit the profile prompt: "Would you like to view or customize the prompt for this profile?" If yes, read `~/.geno/geno-media/tts/profiles/<profile>.yaml` and let the user edit it.
+After selection, offer to view/edit the profile prompt: "Would you like to view or customize the prompt for this profile?" If yes, read `~/.geno-tools/geno-media/tts/profiles/<profile>.yaml` and let the user edit it.
 
 ### 4b. Select base speed
 
@@ -131,7 +131,7 @@ If the user doesn't want to customize any, keep current values.
 
 ### 7. Save config
 
-Write the final config to `~/.geno/geno-media/tts/config.yaml`:
+Write the final config to `~/.geno-tools/geno-media/tts/config.yaml`:
 
 ```yaml
 engine: <selected>
@@ -157,14 +157,14 @@ Display the saved configuration to the user.
 
 ### 8. Update README if needed
 
-If `~/.geno/geno-media/tts/` was newly created, update `~/.geno/geno-media/README.md`:
+If `~/.geno-tools/geno-media/tts/` was newly created, update `~/.geno-tools/geno-media/README.md`:
 - Add `tts/` to the structure tree
 - Add a "TTS Configuration" section explaining the config
 - Add the skill to the Skills table
 
 ## Notes
 
-- The config is consumed by `~/.geno/geno-media/audiobook/generate.py` and the `/gt-create-audiobook` skill
+- The config is consumed by `~/.geno-tools/geno-media/scripts/audiobook/generate.py` and the `/gt-create-audiobook` skill
 - Kokoro runs locally on Apple Silicon at ~36x realtime
 - Kokoro's native sample rate is 24000 Hz — other rates require resampling
 - The `language` field is Kokoro's lang_code, not an ISO code (`a` = American English, `b` = British English)
@@ -172,7 +172,7 @@ If `~/.geno/geno-media/tts/` was newly created, update `~/.geno/geno-media/READM
 
 ## Speed Profiles
 
-Speed profiles live in `~/.geno/geno-media/tts/profiles/<name>.yaml`. Each contains:
+Speed profiles live in `~/.geno-tools/geno-media/tts/profiles/<name>.yaml`. Each contains:
 - `name` — profile identifier
 - `description` — what it does
 - `speed_range` — [min, max] multiplier bounds

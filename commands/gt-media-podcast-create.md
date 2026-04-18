@@ -1,6 +1,6 @@
 # Create Podcast Video (Text-on-Screen)
 
-You are creating a podcast-style video that displays the transcript text on screen synchronized to an audiobook narration, using Manim and the video tooling from `~/.geno/geno-media/video/`.
+You are creating a podcast-style video that displays the transcript text on screen synchronized to an audiobook narration, using Manim and the video tooling from `~/.geno-tools/geno-media/scripts/video/`.
 
 ## Input
 
@@ -15,19 +15,19 @@ Inside the target folder you expect to find (output from `/gt-create-audiobook`)
 
 ## Your Workflow
 
-### 0. Ensure environment
+### 0. Activate the venv
 
-The video venv at `~/.geno/geno-media/video/.venv` must exist. If not, create it:
+The media venv is created by `geno-tools install media`. If missing:
 ```bash
-python3 -m venv ~/.geno/geno-media/video/.venv
-source ~/.geno/geno-media/video/.venv/bin/activate
-pip install manim "stable-ts[mlx]" pyyaml
+geno-tools install media           # from registry
+# or: geno-tools dev media <path>  # for a local checkout
 ```
-Also verify `ffmpeg`, `cairo`, `pango` are available (`brew install cairo pango ffmpeg` if missing).
 
-Always activate the venv before any python/manim commands:
+Verify system deps: `brew install cairo pango ffmpeg` (macOS).
+
+Always activate before any python/manim commands:
 ```bash
-source ~/.geno/geno-media/video/.venv/bin/activate
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
 ```
 
 ### 1. Read and prepare inputs
@@ -62,8 +62,8 @@ Insert `<!-- segment: id -->` markers into `transcript.md` before each segment. 
 ### 4. Run forced alignment
 
 ```bash
-source ~/.geno/geno-media/video/.venv/bin/activate
-python ~/.geno/geno-media/video/align_audio.py "FOLDER"
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
+python ~/.geno-tools/geno-media/scripts/video/align_audio.py "FOLDER"
 ```
 
 This produces `FOLDER/timing.yaml` with per-segment and **per-word timestamps**.
@@ -100,7 +100,7 @@ Create `FOLDER/scene.py` that uses a **data-driven approach**. The scene reads `
 ```python
 import sys, os, re
 from pathlib import Path
-sys.path.insert(0, os.path.expanduser("~/.geno/geno-media/video"))
+sys.path.insert(0, os.path.expanduser("~/.geno-tools/geno-media/video"))
 import yaml
 from manim import *
 
@@ -176,7 +176,7 @@ class PodcastScene(Scene):
 
 ```bash
 cd "FOLDER"
-source ~/.geno/geno-media/video/.venv/bin/activate
+source ~/.geno-tools/geno-media/venvs/media/bin/activate
 manim render -qh scene.py PodcastScene  # 1080p 60fps
 ```
 
@@ -201,7 +201,7 @@ ffmpeg -y -i "FOLDER/media/videos/scene/1080p60/PodcastScene.mp4" \
 - **Subtitle mode** (`SUBTITLE_MODE = True`) is the default — text at bottom, top area free for visuals
 - **Fullscreen mode** (`SUBTITLE_MODE = False`) — centered text, no visual area
 - For a fully custom animated video, use `/gt-create-video` instead
-- Uses the same `~/.geno/geno-media/video/` tooling (align_audio.py, sync_utils.py, Manim) as `/gt-create-video`
+- Uses the same `~/.geno-tools/geno-media/scripts/video/` tooling (align_audio.py, sync_utils.py, Manim) as `/gt-create-video`
 - The data-driven approach means you do NOT need to write individual segment methods — the scene reads timing.yaml and generates everything automatically
 - To add visuals, override `_on_segment(seg_id, seg_start, seg_duration)` in the scene — use `self.visual_layer` to manage persistent top-area content
 - Prefer `Text()` over `Paragraph()` — Manim's Paragraph can be buggy
