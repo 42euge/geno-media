@@ -1,6 +1,18 @@
+---
+name: geno-media-tts-config
+description: >-
+  Configure Text-to-Speech settings (voice, speed profile, output format).
+  Use when user says /geno-media-tts-config.
+allowed-tools: "Bash(ls *) Bash(cat *) Bash(mkdir *) Read(*) Write(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Configure Text-to-Speech Settings
 
-Select and save TTS parameters (voice, speed, output format, etc.) to a config file used by genotools workflows.
+Select and save TTS parameters (voice, speed, output format, etc.) to a config file used by geno-media workflows.
 
 ## Input
 

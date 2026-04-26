@@ -1,3 +1,15 @@
+---
+name: geno-media-podcast-create
+description: >-
+  Create a podcast-style video with karaoke text-on-screen synchronized to audiobook narration.
+  Use when user says /geno-media-podcast-create.
+allowed-tools: "Bash(python3 *) Bash(source *) Bash(ffmpeg *) Bash(ffprobe *) Bash(manim *) Bash(brew *) Bash(ls *) Read(*) Write(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Create Podcast Video (Text-on-Screen)
 
 You are creating a podcast-style video that displays the transcript text on screen synchronized to an audiobook narration, using Manim and the video tooling from `~/.geno-tools/geno-media/scripts/video/`.

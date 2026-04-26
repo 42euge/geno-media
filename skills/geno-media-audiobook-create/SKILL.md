@@ -1,3 +1,15 @@
+---
+name: geno-media-audiobook-create
+description: >-
+  Generate an audiobook from a transcript using Kokoro TTS.
+  Use when user says /geno-media-audiobook-create.
+allowed-tools: "Bash(python3 *) Bash(source *) Bash(ffmpeg *) Bash(ffplay *) Bash(cp *) Bash(rm *) Bash(ls *) Read(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Create Audiobook with Kokoro TTS
 
 You are generating an audiobook from text/markdown files using Kokoro TTS (82M params, runs locally on Apple Silicon).

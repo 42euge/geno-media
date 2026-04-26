@@ -1,3 +1,15 @@
+---
+name: geno-media-audiobook-recursive
+description: >-
+  Recursively generate audiobooks for all .md and .pdf files in a folder tree using Kokoro TTS.
+  Use when user says /geno-media-audiobook-recursive.
+allowed-tools: "Bash(python3 *) Bash(source *) Bash(ffmpeg *) Bash(cp *) Bash(rm *) Bash(ls *) Bash(find *) Read(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Create Audiobooks Recursively with Kokoro TTS
 
 You are generating audiobooks for every `.md` and `.pdf` file found in a folder and its subfolders, using Kokoro TTS (82M params, runs locally on Apple Silicon).

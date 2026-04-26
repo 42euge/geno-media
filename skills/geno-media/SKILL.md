@@ -6,7 +6,7 @@ description: >-
   Use when user says /geno-media-audiobook-create, /geno-media-video-create,
   /geno-media-podcast-create, /geno-media-tts-config, /geno-media-stt-config,
   /geno-media-audio-upload, or /geno-media-audiobook-recursive.
-allowed-tools: "Bash(python3 *) Bash(source *) Bash(ffmpeg *) Bash(ffprobe *) Bash(ffplay *) Bash(manim *) Bash(ls *) Bash(find *) Bash(cp *) Bash(mkdir *) Bash(rm *) Bash(cat *) Bash(brew *) Bash(du *) Read(*) Write(*)"
+allowed-tools: "Bash(python3 *) Bash(source *) Bash(ffmpeg *) Bash(ffprobe *) Bash(ffplay *) Bash(manim *) Bash(ls *) Bash(find *) Bash(cp *) Bash(mkdir *) Bash(rm *) Bash(cat *) Bash(brew *) Read(*)"
 license: MIT
 metadata:
   author: 42euge

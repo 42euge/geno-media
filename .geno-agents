@@ -1,7 +1,0 @@
-role: media-agent
-description: Media creation — audiobooks, videos, TTS/STT configuration
-capabilities:
-  - audiobook
-  - video
-  - tts
-  - stt

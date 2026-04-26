@@ -1,3 +1,15 @@
+---
+name: geno-media-video-create
+description: >-
+  Create an explanatory video with Manim animations synchronized to voiceover audio.
+  Use when user says /geno-media-video-create.
+allowed-tools: "Bash(python3 *) Bash(source *) Bash(ffmpeg *) Bash(ffprobe *) Bash(manim *) Bash(brew *) Bash(ls *) Read(*) Write(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Create Explanatory Video with Manim
 
 You are creating an explanatory video using Python and the Manim library (3Blue1Brown's animation engine) synchronized to a voiceover audio track.
