@@ -1,3 +1,15 @@
+---
+name: geno-media-audiobooks-create
+description: >-
+  Generate an audiobook from a transcript using Kokoro TTS.
+  Use when user says /geno-media-audiobooks-create.
+allowed-tools: "Bash(source *) Bash(python *) Bash(python3 *) Bash(ffmpeg *) Bash(ffprobe *) Bash(ffplay *) Bash(ls *) Bash(cat *) Bash(cp *) Bash(rm *) Read(*) Write(*) Edit(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Create Audiobook with Kokoro TTS
 
 You are generating an audiobook from text/markdown files using Kokoro TTS (82M params, runs locally on Apple Silicon).
@@ -17,10 +29,9 @@ Inside the target folder you will find:
 
 ### 0. Activate the venv
 
-The media venv is created by `geno-tools install media`. If missing:
+The media venv is created by `geno-tools install geno-media`. If missing:
 ```bash
-geno-tools install media           # from registry
-# or: geno-tools dev media <path>  # for a local checkout
+geno-tools install geno-media
 ```
 
 Always activate before any python commands:

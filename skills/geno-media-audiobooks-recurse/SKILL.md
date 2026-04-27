@@ -1,3 +1,15 @@
+---
+name: geno-media-audiobooks-recurse
+description: >-
+  Recursive audiobook generation across subfolders using Kokoro TTS.
+  Use when user says /geno-media-audiobooks-recurse.
+allowed-tools: "Bash(source *) Bash(python *) Bash(python3 *) Bash(ffmpeg *) Bash(ffprobe *) Bash(ls *) Bash(cat *) Bash(cp *) Bash(rm *) Bash(find *) Bash(osascript *) Read(*) Write(*) Edit(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Create Audiobooks Recursively with Kokoro TTS
 
 You are generating audiobooks for every `.md` and `.pdf` file found in a folder and its subfolders, using Kokoro TTS (82M params, runs locally on Apple Silicon).
@@ -14,10 +26,9 @@ If `$ARGUMENTS` is empty or not provided, **default to the current working direc
 
 ### 0. Activate the venv
 
-The media venv is created by `geno-tools install media`. If missing:
+The media venv is created by `geno-tools install geno-media`. If missing:
 ```bash
-geno-tools install media           # from registry
-# or: geno-tools dev media <path>  # for a local checkout
+geno-tools install geno-media
 ```
 
 Always activate before any python commands:
@@ -163,7 +174,7 @@ For each source file, run generate.py **twice** — once with `af_heart` and onc
 When processing a folder with both `.md` and `.pdf`, process the `.md` first (both voices), then the `.pdf` (both voices). Between the md and pdf runs, make sure to remove the temporary `transcript.md` so generate.py picks up the PDF.
 
 #### Progress tracking:
-- After each file completes, report: `[3/12] ✓ papers/attention/RULER (2024).md → RULER (2024) (md) - af_heart.wav (4:32)`
+- After each file completes, report: `[3/12] done papers/attention/RULER (2024).md -> RULER (2024) (md) - af_heart.wav (4:32)`
 - If a file fails, log the error and continue to the next file
 - Keep a running tally of successes/failures
 
@@ -182,7 +193,7 @@ python ~/.geno-tools/geno-media/audio-upload/incremental_upload.py "/path/to/roo
 
 The uploader:
 - Scans for new WAV files every 30 seconds
-- Converts WAV→MP3 with ffmpeg (libmp3lame, -qscale:a 2)
+- Converts WAV to MP3 with ffmpeg (libmp3lame, -qscale:a 2)
 - Copies to Google Drive mount at `~/Library/CloudStorage/GoogleDrive-42euge@gmail.com/My Drive/Audiobooks/`
 - Preserves directory structure from ROOT
 - Tracks uploaded files to avoid re-uploading
@@ -221,5 +232,5 @@ For each generated file:
 - The model generates at 24kHz sample rate
 - Process files **sequentially** (not in parallel) to avoid memory issues — Kokoro loads the model once and reuses it across chunks, but running multiple instances could crash the machine
 - For very large batches, suggest the user processes in smaller groups
-- If a file produces garbled audio (common with PDFs that have lots of math/tables), note it in the summary and suggest the user clean the transcript manually before re-running with `/gt-create-audiobook` on that specific folder
+- If a file produces garbled audio (common with PDFs that have lots of math/tables), note it in the summary and suggest the user clean the transcript manually before re-running with `/geno-media-audiobooks-create` on that specific folder
 - The `--strip-citations` flag is highly recommended for academic papers

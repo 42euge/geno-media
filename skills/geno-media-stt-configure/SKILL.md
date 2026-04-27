@@ -1,6 +1,18 @@
+---
+name: geno-media-stt-configure
+description: >-
+  Configure STT settings — Whisper model, language, backend, output format.
+  Use when user says /geno-media-stt-configure.
+allowed-tools: "Bash(ls *) Bash(cat *) Bash(mkdir *) Read(*) Write(*) Edit(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Configure Speech-to-Text Settings
 
-Select and save STT parameters (model, language, output format, etc.) to a config file used by genotools workflows.
+Select and save STT parameters (model, language, output format, etc.) to a config file used by geno-media workflows.
 
 ## Input
 
