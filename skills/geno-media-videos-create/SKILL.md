@@ -1,3 +1,15 @@
+---
+name: geno-media-videos-create
+description: >-
+  Create an explanatory video with Manim animations synchronized to voiceover audio.
+  Use when user says /geno-media-videos-create.
+allowed-tools: "Bash(source *) Bash(python *) Bash(python3 *) Bash(ffmpeg *) Bash(ffprobe *) Bash(manim *) Bash(brew *) Bash(ls *) Bash(cat *) Bash(cd *) Read(*) Write(*) Edit(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Create Explanatory Video with Manim
 
 You are creating an explanatory video using Python and the Manim library (3Blue1Brown's animation engine) synchronized to a voiceover audio track.
@@ -16,10 +28,9 @@ Inside that folder you will find:
 
 ### 0. Activate the venv
 
-The media venv is created by `geno-tools install media`. If missing:
+The media venv is created by `geno-tools install geno-media`. If missing:
 ```bash
-geno-tools install media           # from registry
-# or: geno-tools dev media <path>  # for a local checkout
+geno-tools install geno-media
 ```
 
 Verify system deps: `brew install cairo pango ffmpeg` (macOS).

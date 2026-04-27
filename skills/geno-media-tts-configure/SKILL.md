@@ -1,6 +1,18 @@
+---
+name: geno-media-tts-configure
+description: >-
+  Configure TTS settings — voice, speed profile, accent, output format.
+  Use when user says /geno-media-tts-configure.
+allowed-tools: "Bash(ls *) Bash(cat *) Bash(mkdir *) Read(*) Write(*) Edit(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Configure Text-to-Speech Settings
 
-Select and save TTS parameters (voice, speed, output format, etc.) to a config file used by genotools workflows.
+Select and save TTS parameters (voice, speed, output format, etc.) to a config file used by geno-media workflows.
 
 ## Input
 
@@ -83,10 +95,10 @@ Speed profiles control how the LLM varies TTS speed per chunk based on content a
 
 Use `AskUserQuestion`:
 - `constant` — Fixed speed, no variation (classic TTS)
-- `natural` — Subtle ebb and flow (0.92x–1.08x), barely perceptible (Recommended)
-- `storyteller` — Wide range for narrative content (0.80x–1.15x), dramatic pacing
-- `dynamic` — Full range for mixed content (0.78x–1.22x), podcast-quality expressiveness
-- `lecturer` — Teaching-optimized (0.80x–1.12x), slows for new concepts, speeds through scaffolding
+- `natural` — Subtle ebb and flow (0.92x-1.08x), barely perceptible (Recommended)
+- `storyteller` — Wide range for narrative content (0.80x-1.15x), dramatic pacing
+- `dynamic` — Full range for mixed content (0.78x-1.22x), podcast-quality expressiveness
+- `lecturer` — Teaching-optimized (0.80x-1.12x), slows for new concepts, speeds through scaffolding
 
 After selection, offer to view/edit the profile prompt: "Would you like to view or customize the prompt for this profile?" If yes, read `~/.geno-tools/geno-media/tts/profiles/<profile>.yaml` and let the user edit it.
 
@@ -164,7 +176,7 @@ If `~/.geno-tools/geno-media/tts/` was newly created, update `~/.geno-tools/geno
 
 ## Notes
 
-- The config is consumed by `~/.geno-tools/geno-media/scripts/audiobook/generate.py` and the `/gt-create-audiobook` skill
+- The config is consumed by `~/.geno-tools/geno-media/scripts/audiobook/generate.py` and the `/geno-media-audiobooks-create` skill
 - Kokoro runs locally on Apple Silicon at ~36x realtime
 - Kokoro's native sample rate is 24000 Hz — other rates require resampling
 - The `language` field is Kokoro's lang_code, not an ISO code (`a` = American English, `b` = British English)
@@ -182,9 +194,9 @@ The prompt is the key piece — it teaches the LLM linguistics-based rules for w
 
 Available profiles:
 - **constant** — no variation (1.0x fixed)
-- **natural** — subtle human-like ebb and flow (0.92x–1.08x)
-- **storyteller** — wide range for narrative/fiction (0.80x–1.15x)
-- **dynamic** — full range for mixed content like podcasts (0.78x–1.22x)
-- **lecturer** — teaching-optimized, slows for new concepts (0.80x–1.12x)
+- **natural** — subtle human-like ebb and flow (0.92x-1.08x)
+- **storyteller** — wide range for narrative/fiction (0.80x-1.15x)
+- **dynamic** — full range for mixed content like podcasts (0.78x-1.22x)
+- **lecturer** — teaching-optimized, slows for new concepts (0.80x-1.12x)
 
 Users can create custom profiles by adding new YAML files to the profiles directory.

@@ -1,3 +1,15 @@
+---
+name: geno-media-podcasts-create
+description: >-
+  Create a podcast-style video with karaoke text-on-screen synchronized to audio.
+  Use when user says /geno-media-podcasts-create.
+allowed-tools: "Bash(source *) Bash(python *) Bash(python3 *) Bash(ffmpeg *) Bash(ffprobe *) Bash(manim *) Bash(brew *) Bash(ls *) Bash(cat *) Bash(cd *) Read(*) Write(*) Edit(*)"
+license: MIT
+metadata:
+  author: 42euge
+  version: "0.2.0"
+---
+
 # Create Podcast Video (Text-on-Screen)
 
 You are creating a podcast-style video that displays the transcript text on screen synchronized to an audiobook narration, using Manim and the video tooling from `~/.geno-tools/geno-media/scripts/video/`.
@@ -8,7 +20,7 @@ The user may provide a folder path as an argument: `$ARGUMENTS`
 
 If `$ARGUMENTS` is empty or not provided, **default to the current working directory**. Before asking the user for a path, first check if `transcript.md` and `audiobook.wav` exist in the current working directory — if they do, use that directory automatically.
 
-Inside the target folder you expect to find (output from `/gt-create-audiobook`):
+Inside the target folder you expect to find (output from `/geno-media-audiobooks-create`):
 - **transcript.md** — the narration text
 - **audiobook_meta.yaml** — metadata (duration, chapters, audio filename)
 - **The audio file** — named after the paper title (e.g., `Measuring Progress Toward AGI - A Cognitive Framework.wav`). Read `audiobook_meta.yaml` and use the `audio_file` field to find the correct filename. If `audio_file` is not present, fall back to `audiobook.wav`.
@@ -17,10 +29,9 @@ Inside the target folder you expect to find (output from `/gt-create-audiobook`)
 
 ### 0. Activate the venv
 
-The media venv is created by `geno-tools install media`. If missing:
+The media venv is created by `geno-tools install geno-media`. If missing:
 ```bash
-geno-tools install media           # from registry
-# or: geno-tools dev media <path>  # for a local checkout
+geno-tools install geno-media
 ```
 
 Verify system deps: `brew install cairo pango ffmpeg` (macOS).
@@ -104,7 +115,7 @@ sys.path.insert(0, os.path.expanduser("~/.geno-tools/geno-media/video"))
 import yaml
 from manim import *
 
-# ── Configuration ──
+# -- Configuration --
 SUBTITLE_MODE = True  # True = bottom subtitles + free top area; False = centered fullscreen
 
 DIMMED = "#333333"
@@ -197,11 +208,11 @@ ffmpeg -y -i "FOLDER/media/videos/scene/1080p60/PodcastScene.mp4" \
 
 ## Important Notes
 
-- This skill is designed to run **after** `/gt-create-audiobook` has already generated the audio
+- This skill is designed to run **after** `/geno-media-audiobooks-create` has already generated the audio
 - **Subtitle mode** (`SUBTITLE_MODE = True`) is the default — text at bottom, top area free for visuals
 - **Fullscreen mode** (`SUBTITLE_MODE = False`) — centered text, no visual area
-- For a fully custom animated video, use `/gt-create-video` instead
-- Uses the same `~/.geno-tools/geno-media/scripts/video/` tooling (align_audio.py, sync_utils.py, Manim) as `/gt-create-video`
+- For a fully custom animated video, use `/geno-media-videos-create` instead
+- Uses the same `~/.geno-tools/geno-media/scripts/video/` tooling (align_audio.py, sync_utils.py, Manim) as `/geno-media-videos-create`
 - The data-driven approach means you do NOT need to write individual segment methods — the scene reads timing.yaml and generates everything automatically
 - To add visuals, override `_on_segment(seg_id, seg_start, seg_duration)` in the scene — use `self.visual_layer` to manage persistent top-area content
 - Prefer `Text()` over `Paragraph()` — Manim's Paragraph can be buggy

@@ -26,5 +26,3 @@ config:
   - {src: config/defaults/stt.yaml, dst: stt.yaml}
   - {src: config/defaults/profiles, dst: profiles, recursive: true}
 
-commands:
-  source: commands/
