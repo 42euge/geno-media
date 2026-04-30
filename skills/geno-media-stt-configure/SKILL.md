@@ -42,7 +42,7 @@ If `$ARGUMENTS` is `show`, stop here.
 
 ### 2. Select model
 
-Use `AskUserQuestion` to let the user pick a Whisper model:
+Ask the user to let the user pick a Whisper model:
 
 | Model | Size | Speed | Accuracy |
 |-------|------|-------|----------|
@@ -55,20 +55,20 @@ Default: whatever is currently in config (or `large-v3-turbo` for new configs). 
 
 ### 3. Select language
 
-Use `AskUserQuestion`:
+Ask the user:
 - `en` — English (Recommended)
 - `auto` — Auto-detect (slower, useful for multilingual content)
 - Other — let user type a language code
 
 ### 4. Select backend
 
-Use `AskUserQuestion`:
+Ask the user:
 - `mlx` — MLX (Apple Silicon optimized) (Recommended)
 - `cpu` — CPU (portable, slower)
 
 ### 5. Advanced settings
 
-Use `AskUserQuestion` (multiSelect) to ask which advanced settings the user wants to customize:
+Ask the user (multiSelect) to ask which advanced settings the user wants to customize:
 - Beam size (default: 5)
 - Temperature (default: 0.0)
 - Word timestamps (default: true)

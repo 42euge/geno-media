@@ -65,7 +65,7 @@ Before generating anything, show the user a summary:
 
 ### 3. Choose profile
 
-Use `AskUserQuestion` to present a selection menu with these options:
+Prompt the user to select to present a selection menu with these options:
 
 1. **"Default — dual voice, strip citations, include PDFs"** — the default profile (see below)
 2. **"Single voice — af_heart only"** — one version per file with af_heart, speed 1.0, strip citations, include PDFs
@@ -123,7 +123,7 @@ If the user selects profile 4 (V2), the workflow uses a dedicated batch script t
 
 **V2 visual descriptions** (optional, requires `ANTHROPIC_API_KEY`):
 - Extracts pages with figures/tables from the PDF
-- Sends to Claude Vision API for natural-language descriptions
+- Sends to vision API for natural-language descriptions
 - Injects descriptions into text where figures/tables are first referenced
 
 **iMessage notifications:**

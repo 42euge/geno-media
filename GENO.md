@@ -48,6 +48,7 @@ geno-media/
 - **Skill naming**: `geno-media-{sub-skillset}-{action}` where sub-skillset is a pluralized noun and action is a verb.
 - **SKILL.md frontmatter**: every skill directory contains a `SKILL.md` with `name`, `description`, `allowed-tools`, `license`, and `metadata` fields.
 - **Adding a new skill**: create `skills/geno-media-{sub}-{verb}/SKILL.md`, update the umbrella SKILL.md skills table, update this file's skills table and repo structure.
+- **Prefix aliasing**: The canonical prefix in source is `geno-` (e.g., `geno-media-audiobooks-create`). Short `/gt-` aliases (e.g., `/gt-media-audiobook-create`) are configured per-install by geno-tools and should not appear in source files.
 
 ## Architecture
 
