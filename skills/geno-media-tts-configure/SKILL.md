@@ -44,14 +44,14 @@ If `$ARGUMENTS` is `show`, stop here.
 
 ### 2. Select engine
 
-Use `AskUserQuestion`:
+Ask the user:
 - `kokoro` — Kokoro TTS (82M params, local, Apple Silicon) (Recommended)
 
 Only one engine currently supported. If the user picks "Other", note the name and save it but warn that only Kokoro is integrated in the generate scripts.
 
 ### 3. Select voice
 
-Use `AskUserQuestion` to let the user pick a voice category first:
+Ask the user to let the user pick a voice category first:
 
 - **Female voices** — warm, clear, professional tones
 - **Male voices** — narrator, authoritative, dramatic tones
@@ -93,7 +93,7 @@ Present the voices for the chosen category using `AskUserQuestion` (max 4 option
 
 Speed profiles control how the LLM varies TTS speed per chunk based on content analysis. Each profile is a YAML file in `~/.geno-tools/geno-media/tts/profiles/` containing a prompt that instructs the LLM when to speed up and slow down.
 
-Use `AskUserQuestion`:
+Ask the user:
 - `constant` — Fixed speed, no variation (classic TTS)
 - `natural` — Subtle ebb and flow (0.92x-1.08x), barely perceptible (Recommended)
 - `storyteller` — Wide range for narrative content (0.80x-1.15x), dramatic pacing
@@ -104,7 +104,7 @@ After selection, offer to view/edit the profile prompt: "Would you like to view 
 
 ### 4b. Select base speed
 
-The base speed is the center point around which the profile varies. Use `AskUserQuestion`:
+The base speed is the center point around which the profile varies. Ask the user:
 - `0.8` — Slow, deliberate (audiobooks, accessibility)
 - `1.0` — Normal (Recommended)
 - `1.1` — Slightly brisk (podcasts)
@@ -112,7 +112,7 @@ The base speed is the center point around which the profile varies. Use `AskUser
 
 ### 5. Select language code
 
-Use `AskUserQuestion`:
+Ask the user:
 - `a` — American English (Recommended)
 - `b` — British English
 
@@ -120,7 +120,7 @@ These are Kokoro lang_code values passed to KPipeline.
 
 ### 6. Advanced settings
 
-Use `AskUserQuestion` (multiSelect) to ask which advanced settings the user wants to customize:
+Ask the user (multiSelect) to ask which advanced settings the user wants to customize:
 - Sample rate (default: 24000)
 - Output format (default: wav)
 - Chunk max chars (default: 400)
